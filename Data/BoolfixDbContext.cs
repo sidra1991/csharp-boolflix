@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using csharp_boolflix.Models;
 
 namespace csharp_boolflix.Data
 {
     public class BoolfixDbContext : IdentityDbContext<IdentityUser>
     {
-
+        public DbSet<Series> Series { get; set; }
+        public DbSet<Media> Media { get; set; }
         public BoolfixDbContext(DbContextOptions<BoolfixDbContext> options)
          : base(options)
         {

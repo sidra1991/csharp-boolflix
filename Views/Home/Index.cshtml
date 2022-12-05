@@ -10,7 +10,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <strong>ben tornato @UserManager.GetUserName(User)</strong>
-    <span> vai alla </span> <a class="btn btn-primary">home</a>
+    <span> vai alla </span> <a class="btn btn-primary" href="@Url.Action("Home","Boolfix" )" >home</a>
 }
 else
 {
