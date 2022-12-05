@@ -9,6 +9,9 @@ namespace csharp_boolflix.Data
     {
         public DbSet<Series> Series { get; set; }
         public DbSet<Media> Media { get; set; }
+        public DbSet<Cast> Casts { get; set; }
+        public DbSet<Season> Seasons { get; set; }
+        public DbSet<Film> Films { get; set; }
         public BoolfixDbContext(DbContextOptions<BoolfixDbContext> options)
          : base(options)
         {

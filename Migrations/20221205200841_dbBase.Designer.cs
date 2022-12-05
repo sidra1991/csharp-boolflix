@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using csharp_boolflix.Data;
 
@@ -11,9 +12,11 @@ using csharp_boolflix.Data;
 namespace csharpboolflix.Migrations
 {
     [DbContext(typeof(BoolfixDbContext))]
-    partial class BoolfixDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221205200841_dbBase")]
+    partial class dbBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -365,10 +368,6 @@ namespace csharpboolflix.Migrations
 
                     b.Property<int?>("NumberEpisodes")
                         .HasColumnType("int");
-
-                    b.Property<string>("immage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

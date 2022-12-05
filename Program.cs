@@ -2,7 +2,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using csharp_boolflix.Data;
 using csharp_boolflix;
+using csharp_boolflix.Models.repository;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<_Repository, RepositoryMedia>();
 
 var connectionString = builder.Configuration.GetConnectionString("BoolflixDbContextConnection"); builder.Services.AddDbContext<BoolfixDbContext>(options =>
     options.UseSqlServer(connectionString));builder.Services.AddDbContext<BoolfixDbContext>(options =>
@@ -11,7 +14,8 @@ var connectionString = builder.Configuration.GetConnectionString("BoolflixDbCont
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+//da inserirsi sotto a AddControllersWithViews
+//builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +25,11 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
+
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

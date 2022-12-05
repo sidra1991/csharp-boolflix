@@ -8,8 +8,10 @@ namespace csharp_boolflix.Models
         [Required]
         public string Name { get; set; }
         
+        public string immage { get; set; }
         public int? NumberEpisodes { get; set; }
-        public List<Media> Episodies { get; set; }
+        public List<Season> Seasons { get; set; }
+
 
         
     }

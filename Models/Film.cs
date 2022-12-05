@@ -1,8 +1,8 @@
-﻿using Microsoft.Build.Framework;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace csharp_boolflix.Models
 {
-    public class Media
+    public class Film
     {
         public int Id { get; set; }
         [Required]
@@ -16,9 +16,9 @@ namespace csharp_boolflix.Models
 
         [Required]
         public string VideUrl { get; set; }
-        public Season? Season { get ; set ; }
 
         public List<Cast> Casts { get; set; }
+
 
     }
 }

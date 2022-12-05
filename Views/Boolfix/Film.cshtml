@@ -4,14 +4,12 @@
 @{
     Layout = "_logLayout";
 }
-@model List<SeriesAndFilms>
-
+@model List<Film>
 
 
 <ul>
-    @foreach (SeriesAndFilms item in Model)
+    @foreach (Film item in Model)
     {
-        <li>@item.Name</li>
+        <li> @item.Name </li>
     }
 </ul>
-
