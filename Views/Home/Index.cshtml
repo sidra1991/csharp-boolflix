@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <strong>ben tornato @UserManager.GetUserName(User)</strong>
+    <span> vai alla </span> <a class="btn btn-primary">home</a>
+}
+else
+{
+    <li class=" btn btn-danger nav-item">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">registrati</a>
+    </li>
+}
