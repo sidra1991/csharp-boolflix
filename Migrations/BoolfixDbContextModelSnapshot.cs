@@ -344,6 +344,10 @@ namespace csharpboolflix.Migrations
                     b.Property<int>("SeriesId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SeriesId");

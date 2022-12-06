@@ -12,8 +12,8 @@ using csharp_boolflix.Data;
 namespace csharpboolflix.Migrations
 {
     [DbContext(typeof(BoolfixDbContext))]
-    [Migration("20221205172754_new")]
-    partial class @new
+    [Migration("20221206170514_Series3")]
+    partial class Series3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,36 @@ namespace csharpboolflix.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CastFilm", b =>
+                {
+                    b.Property<int>("CastsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FilmsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CastsId", "FilmsId");
+
+                    b.HasIndex("FilmsId");
+
+                    b.ToTable("CastFilm");
+                });
+
+            modelBuilder.Entity("CastMedia", b =>
+                {
+                    b.Property<int>("CastsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MediasId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CastsId", "MediasId");
+
+                    b.HasIndex("MediasId");
+
+                    b.ToTable("CastMedia");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -227,6 +257,161 @@ namespace csharpboolflix.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("csharp_boolflix.Models.Cast", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Casts");
+                });
+
+            modelBuilder.Entity("csharp_boolflix.Models.Film", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Immage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VideUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Films");
+                });
+
+            modelBuilder.Entity("csharp_boolflix.Models.Media", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Immage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SeasonId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VideUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SeasonId");
+
+                    b.ToTable("Media");
+                });
+
+            modelBuilder.Entity("csharp_boolflix.Models.Season", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeriesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SeriesId");
+
+                    b.ToTable("Seasons");
+                });
+
+            modelBuilder.Entity("csharp_boolflix.Models.Series", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("NumberEpisodes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("immage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Series");
+                });
+
+            modelBuilder.Entity("CastFilm", b =>
+                {
+                    b.HasOne("csharp_boolflix.Models.Cast", null)
+                        .WithMany()
+                        .HasForeignKey("CastsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("csharp_boolflix.Models.Film", null)
+                        .WithMany()
+                        .HasForeignKey("FilmsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CastMedia", b =>
+                {
+                    b.HasOne("csharp_boolflix.Models.Cast", null)
+                        .WithMany()
+                        .HasForeignKey("CastsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("csharp_boolflix.Models.Media", null)
+                        .WithMany()
+                        .HasForeignKey("MediasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -276,6 +461,36 @@ namespace csharpboolflix.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("csharp_boolflix.Models.Media", b =>
+                {
+                    b.HasOne("csharp_boolflix.Models.Season", "Season")
+                        .WithMany("Episodies")
+                        .HasForeignKey("SeasonId");
+
+                    b.Navigation("Season");
+                });
+
+            modelBuilder.Entity("csharp_boolflix.Models.Season", b =>
+                {
+                    b.HasOne("csharp_boolflix.Models.Series", "Series")
+                        .WithMany("Seasons")
+                        .HasForeignKey("SeriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Series");
+                });
+
+            modelBuilder.Entity("csharp_boolflix.Models.Season", b =>
+                {
+                    b.Navigation("Episodies");
+                });
+
+            modelBuilder.Entity("csharp_boolflix.Models.Series", b =>
+                {
+                    b.Navigation("Seasons");
                 });
 #pragma warning restore 612, 618
         }

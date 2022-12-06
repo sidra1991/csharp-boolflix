@@ -14,8 +14,11 @@ namespace csharp_boolflix.Models
         [Required]
         public string Immage { get; set; }
 
+        public int Number { get; set; }
+
         [Required]
         public string VideUrl { get; set; }
+        public int SeasonId { get; set; }
         public Season? Season { get ; set ; }
 
         public List<Cast> Casts { get; set; }

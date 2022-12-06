@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layout";
+}
+
+@model List<Series>
+
+<p> seleziona la serie in cui vuoi inserire una nuova stagione </p>
+
+@foreach (Series item in Model)
+{
+    <p> @item.Name </p>
+  <a class="btn btn-primary" asp-area="" asp-controller="CrudFilmSerieTv" asp-action="CreateSeason" asp-rote-id="@item.Id">crea stagione</a>
+}

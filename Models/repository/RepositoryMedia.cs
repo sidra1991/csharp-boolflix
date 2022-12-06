@@ -22,7 +22,7 @@ namespace csharp_boolflix.Models.repository
         }
         public List<Series> GetAllSeries()
         {
-            return db.Series.ToList();
+            return db.Series.Include("Seasons").ToList();
         }
 
         public List<SeriesAndFilms> SeriesAndFilms()
@@ -57,9 +57,22 @@ namespace csharp_boolflix.Models.repository
             return db.Films.Where(fi => fi.Id == id).FirstOrDefault();
         }
 
+        public Media GetAMedia(int id)
+        {
+            return db.Media.Where(fi => fi.Id == id).FirstOrDefault();
+        }
+
         public Season GetAseason(int id)
         {
-            return db.Seasons.Where(fi => fi.Id == id).Include("Episodies").FirstOrDefault();
+
+            Season season = db.Seasons.Where(se => se.Id == id).Include("Episodies").FirstOrDefault();
+
+            foreach (Media item in season.Episodies)
+            {
+                GetAMedia(item.Id);
+            }
+
+            return season;
         }
 
 
@@ -91,6 +104,37 @@ namespace csharp_boolflix.Models.repository
         public void RemoveFilm(int Id)
         {
             db.Remove(GetAfilm(Id));
+            db.SaveChanges();
+        }
+
+
+        /* function Series
+         * 
+         * -----------*/
+        public void AddSeries(Series serie)
+        {
+            db.Series.Add(serie);
+            db.SaveChanges();
+        }
+        public void AddSeason(Season season)
+        {
+            db.Seasons.Add(season);
+            db.SaveChanges();
+        }
+        public Series GetSeries(int id)
+        {
+         return db.Series.Where(se => se.Id == id).Include("Seasons").FirstOrDefault();
+
+        }
+
+        public List<Season> GetAllSeason(int Id)
+        {
+            return GetAseries(Id).Seasons.ToList();
+        }
+
+        public void AddMedia(Media media)
+        {
+            db.Media.Add(media);
             db.SaveChanges();
         }
     }
