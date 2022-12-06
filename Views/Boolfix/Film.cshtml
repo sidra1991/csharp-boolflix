@@ -20,6 +20,14 @@
                 riproduci
             </a>
 
+            <a class="btn btn-primary d-block" asp-area="" asp-controller="CrudFilmSerieTv" asp-action="UpdateFilm" asp-route-id="@item.Id">
+                modifica dati film
+            </a>
+            <form asp-controller="CrudFilmSerieTv" asp-action="DeleteFilm" method="post" asp-route-id="@item.Id">
+                <button class="btn btn-primary d-block" type="submit">
+                   elimina film
+                </button>
+            </form>
         </li>
 
     }

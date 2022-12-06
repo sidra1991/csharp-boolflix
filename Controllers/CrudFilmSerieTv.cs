@@ -14,6 +14,13 @@ namespace csharp_boolflix.Controllers
         {
             repo = _repository;
         }
+
+
+
+
+        /* create of films
+        ------------------
+        -----------------*/
         public IActionResult CreateFilm()
         {
             Film NewFilm = new();
@@ -35,5 +42,53 @@ namespace csharp_boolflix.Controllers
             return View("../Home/index");
         }
 
+
+        /* update of films
+        ------------------
+        -----------------*/
+
+        public IActionResult UpdateFilm(int id)
+        {
+            Film updateFilm = repo.GetAfilm(id);
+
+            if (updateFilm == null)
+                return NotFound();
+
+            return View("CreateFilm", updateFilm);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateFilm(Film updateFilm)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View("CreateFilm", updateFilm);
+            }
+
+
+            if (updateFilm == null)
+            {
+                return NotFound();
+            }
+
+            repo.UpdateFilm(updateFilm);
+
+            return View("../Home/index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteFilm(int id)
+        {
+            if (repo.GetAfilm(id) == null)
+            {
+                return NotFound();
+            }
+            repo.RemoveFilm(id);
+
+
+            return RedirectToAction(" Indice ");
+        }
     }
 }
