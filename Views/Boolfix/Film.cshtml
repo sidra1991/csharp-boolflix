@@ -15,6 +15,12 @@
             <a  class="btn btn-primary d-block" style="color : white ; width : 100 px ; " href="@Url.Action( "ShowFilm" ,new {id = item.Id}) "  >
             dettagli
             </a >
+
+            <a class="btn btn-primary d-block" style="color : white ; width : 100 px ; " href="@item.VideUrl ">
+                riproduci
+            </a>
+
         </li>
+
     }
 </ul>

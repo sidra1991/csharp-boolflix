@@ -8,5 +8,16 @@
 
 <h1> film : @Model.Name </h1>
 
+@foreach (Season item in Model.Seasons)
+{
+   <h1> @item.Number</h1>
+   @foreach (Media epi in item.Episodies)
+    {
+        <h2> @epi.Name </h2>
+        <a class="btn btn-primary d-block" style="color : white ; width : 100 px ; " href="@epi.VideUrl ">
+                riproduci
+        </a>
+    }
+}
 
 sono lo show
