@@ -75,5 +75,11 @@ namespace csharp_boolflix.Models.repository
             return series;
 
         }
+
+        public void AddFilm(Film film)
+        {
+            db.Films.Add(film);
+            db.SaveChanges();
+        }
     }
 }

@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layout";
+
+}
+@model Film;
+
+<div class="container" >
+        <form  asp-controller = "CrudFilmSerieTv"  asp-action = "CreateFilm"  method = "post" >
+            <div class="mb-3">
+                <label for="Immage" class="form-label">Immagine</label>
+                <input asp-for="@Model.Immage" class="form-control" aria-describedby="emailHelp" />
+                <span asp-validation-for="@Model.Immage" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="Name" class="form-label">Nome</label>
+                <input asp-for="@Model.Name" class="form-control" />
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 form-check">
+                <label for="video" class="form-label">url video</label>
+                <input type="text" asp-for="@Model.VideUrl" />
+                <span asp-validation-for="@Model.VideUrl" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+</div>

@@ -17,7 +17,7 @@ namespace csharp_boolflix.Models
         [Required]
         public string VideUrl { get; set; }
 
-        public List<Cast> Casts { get; set; }
+        public List<Cast>? Casts { get; set; }
 
 
     }

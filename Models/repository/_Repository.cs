@@ -9,5 +9,7 @@
         public List<SeriesAndFilms> SeriesAndFilms();
         public Film GetAfilm(int id);
         public Series GetAseries(int id);
+        public void AddFilm(Film film); 
+
     }
 }
