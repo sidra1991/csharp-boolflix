@@ -47,5 +47,19 @@ namespace csharp_boolflix.Controllers
             //da implementare insieme al DB
             return View(repo.SeriesAndFilms());
         }
+
+        public IActionResult ShowFilm(int id)
+        {
+            return View(repo.GetAfilm(id));
+         }
+
+        public IActionResult ShowSeries(int id)
+        {
+
+            return View(repo.GetAseries(id));
+
+        }
+
+
     }
 }

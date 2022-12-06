@@ -11,5 +11,10 @@
         @foreach (Series item in Model)
         {
             <li> @item.Name </li>
+            <li>
+                <a class="btn btn-primary d-block" style="color : white ; width : 100 px ; " href="@Url.Action( "ShowSeries" ,new {id = item.Id}) ">
+                    dettagli
+                </a>
+            </li>
         }
     </ul>

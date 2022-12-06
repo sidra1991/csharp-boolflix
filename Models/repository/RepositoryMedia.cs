@@ -1,4 +1,5 @@
 ﻿using csharp_boolflix.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace csharp_boolflix.Models.repository
 {
@@ -34,6 +35,7 @@ namespace csharp_boolflix.Models.repository
                 seriesAndFilms1.Name = item.Name;
                 seriesAndFilms1.immage = item.Immage;
                 seriesAndFilms1.OriginalId = item.Id;
+                seriesAndFilms1.Video = item.VideUrl;
                 seriesAndFilms1.Type = "Film";
                 seriesAndFilms.Add(seriesAndFilms1);
             }
@@ -50,6 +52,28 @@ namespace csharp_boolflix.Models.repository
             return seriesAndFilms;
         }
 
+        public Film GetAfilm(int id)
+        {
+            return db.Films.Where(fi => fi.Id == id).FirstOrDefault();
+        }
 
+        public Season GetAseason(int id)
+        {
+            return db.Seasons.Where(fi => fi.Id == id).Include("Episodies").FirstOrDefault();
+        }
+
+
+        public Series GetAseries(int id)
+        {
+            Series series = db.Series.Where(se => se.Id == id).Include("Seasons").FirstOrDefault();
+
+            foreach (Season item in series.Seasons)
+            {
+                GetAseason(item.Id);
+            }
+
+            return series;
+
+        }
     }
 }
