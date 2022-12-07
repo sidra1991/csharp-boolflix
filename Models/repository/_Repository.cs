@@ -8,7 +8,7 @@
       
         public List<SeriesAndFilms> SeriesAndFilms();
        
-        public Series GetAseries(int id);
+        //public Series GetAseries(int id);
 
         /* function for films 
          * ----------------
@@ -32,5 +32,6 @@
         void AddMedia(Media media);
         Season GetAseason(int id);
         Media GetAMedia(int id);
+        void UpdateSeries(Series series);
     }
 }

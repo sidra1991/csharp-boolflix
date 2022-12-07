@@ -21,7 +21,7 @@ namespace csharp_boolflix.Models
         public int SeasonId { get; set; }
         public Season? Season { get ; set ; }
 
-        public List<Cast> Casts { get; set; }
+        public List<Cast>? Casts { get; set; }
 
     }
 }

@@ -176,10 +176,20 @@ namespace csharp_boolflix.Controllers
         {
             Media media = new Media();
             media.Name = form.Media.Name;
+            media.Immage = form.Media.Immage;
+            media.VideUrl = form.Media.VideUrl;
 
 
             Season season = repo.GetAseason(form.SeasonId);
-            media.Number = season.Episodies.Count() + 1;
+            if (season.Episodies.Count > 0)
+            {
+                media.Number = season.Episodies.Count() + 1;
+            }
+            else
+            {
+                media.Number = 1;   
+            }
+            
 
 
             media.SeasonId = form.SeasonId;
@@ -198,5 +208,33 @@ namespace csharp_boolflix.Controllers
 
             return View("../Home/Index");
         }
+
+
+        /* UPDATE SERIES
+         * ----------------
+         * --------------*/
+        public IActionResult UpdateSeries(int id)
+        {
+            Series UpdateSeries = new();
+            UpdateSeries = repo.GetSeries(id);
+
+            return View(UpdateSeries);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateSeries(Series UpdateSeries)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(UpdateSeries);
+            }
+
+            repo.UpdateSeries(UpdateSeries);
+
+            return View("../Home/Index");
+        }
+
+
     }
 }

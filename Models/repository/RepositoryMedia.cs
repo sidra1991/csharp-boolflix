@@ -1,4 +1,5 @@
 ﻿using csharp_boolflix.Data;
+using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 
 namespace csharp_boolflix.Models.repository
@@ -65,29 +66,23 @@ namespace csharp_boolflix.Models.repository
         public Season GetAseason(int id)
         {
 
-            Season season = db.Seasons.Where(se => se.Id == id).Include("Episodies").FirstOrDefault();
-
-            foreach (Media item in season.Episodies)
-            {
-                GetAMedia(item.Id);
-            }
-
-            return season;
-        }
-
-
-        public Series GetAseries(int id)
-        {
-            Series series = db.Series.Where(se => se.Id == id).Include("Seasons").FirstOrDefault();
-
-            foreach (Season item in series.Seasons)
-            {
-                GetAseason(item.Id);
-            }
-
-            return series;
+            return db.Seasons.Where(se => se.Id == id).Include("Episodies").FirstOrDefault();
 
         }
+
+
+        //public Series GetAseries(int id)
+        //{
+        //    Series series = db.Series.Where(se => se.Id == id).Include("Seasons").FirstOrDefault();
+
+        //    foreach (Season item in series.Seasons)
+        //    {
+        //        GetAseason(item.Id);
+        //    }
+
+        //    return series;
+
+        //}
 
         public void AddFilm(Film film)
         {
@@ -123,13 +118,21 @@ namespace csharp_boolflix.Models.repository
         }
         public Series GetSeries(int id)
         {
-         return db.Series.Where(se => se.Id == id).Include("Seasons").FirstOrDefault();
-
+         Series serie = db.Series.Where(se => se.Id == id).Include("Seasons").FirstOrDefault();
+            if (serie.Seasons == null )
+            {
+                serie.Seasons = new();
+            }
+            foreach (Season s in serie.Seasons)
+            {
+                s.Episodies = GetAseason(s.Id).Episodies.ToList();
+            }
+            return serie;
         }
 
         public List<Season> GetAllSeason(int Id)
         {
-            return GetAseries(Id).Seasons.ToList();
+            return GetSeries(Id).Seasons.ToList();
         }
 
         public void AddMedia(Media media)
@@ -137,5 +140,12 @@ namespace csharp_boolflix.Models.repository
             db.Media.Add(media);
             db.SaveChanges();
         }
+
+        public void UpdateSeries(Series series)
+        {
+            db.Series.Update(series);
+            db.SaveChanges();
+        }
+
     }
 }

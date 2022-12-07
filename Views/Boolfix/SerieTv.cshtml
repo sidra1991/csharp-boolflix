@@ -11,6 +11,8 @@
         @foreach (Series item in Model)
         {
             <li> @item.Name </li>
+        <a class="btn btn-primary" asp-area="" asp-controller="CrudFilmSerieTv" asp-action="UpdateSeries" asp-route-id="@item.Id">modifica serie</a>
+
             <li>
                 <a class="btn btn-primary d-block" style="color : white ; width : 100 px ; " href="@Url.Action( "ShowSeries" ,new {id = item.Id}) ">
                     dettagli

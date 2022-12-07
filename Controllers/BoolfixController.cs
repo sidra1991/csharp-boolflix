@@ -56,7 +56,7 @@ namespace csharp_boolflix.Controllers
         public IActionResult ShowSeries(int id)
         {
 
-            return View(repo.GetAseries(id));
+            return View(repo.GetSeries(id));
 
         }
 
